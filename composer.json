@@ -20,7 +20,13 @@
     ],
     "require": {
 	  "php": "^8.2 || ^8.3 || ^8.4",
-	  "willy68/pg-router": "^2.0"
+	  "willy68/pg-router": "dev-main",
+	  "entropyphp/module": "^v1.0",
+	  "entropyphp/utils": "^v0.1",
+	  "entropyphp/eventdispacher": "^v1.0",
+	  "psr/container": "^2.0",
+	  "php-di/php-di": "^7.0",
+	  "symfony/console": "^v7.3"
 	},
   	"require-dev": {
 	  "phpunit/phpunit": "^10.5 || ^11.3 || ^12.0",
