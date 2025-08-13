@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Entropy\Router\Listener;
 
+use Entropy\Event\Events;
 use Entropy\Event\EventSubscriberInterface;
 use Entropy\Event\RequestEvent;
 use Entropy\Router\Exception\PageNotFoundException;
