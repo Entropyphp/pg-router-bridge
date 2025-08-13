@@ -15,10 +15,10 @@ class RouteLoader
     protected AttributeLoader $attributeLoader;
 
     public function __construct(
-        RouterInterface $collector,
+        RouterInterface $router,
         AttributeLoader $attributeLoader
     ) {
-        $this->router = $collector;
+        $this->router = $router;
         $this->attributeLoader = $attributeLoader;
     }
 
