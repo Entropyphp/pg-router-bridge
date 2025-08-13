@@ -20,7 +20,7 @@
     ],
     "require": {
 	  "php": "^8.2 || ^8.3 || ^8.4",
-	  "willy68/pg-router": "dev-main",
+	  "willy68/pg-router": "^v2.0",
 	  "entropyphp/module": "^v1.0",
 	  "entropyphp/utils": "^0.1",
 	  "entropyphp/eventdispacher": "^v1.0",
