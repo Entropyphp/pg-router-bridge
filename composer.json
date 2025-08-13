@@ -22,8 +22,10 @@
 	  "php": "^8.2 || ^8.3 || ^8.4",
 	  "willy68/pg-router": "dev-main",
 	  "entropyphp/module": "^v1.0",
-	  "entropyphp/utils": "^v0.1",
+	  "entropyphp/utils": "^0.1",
 	  "entropyphp/eventdispacher": "^v1.0",
+	  "entropyphp/entropyphp": "dev-main",
+	  "guzzlehttp/psr7": "^2.6",
 	  "psr/container": "^2.0",
 	  "php-di/php-di": "^7.0",
 	  "symfony/console": "^v7.3"

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Entropy\Router\Command;
 
 use Pg\Router\Route;
-use Pg\Router\RouteCollectionInterface;
+use Pg\Router\RouterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,12 +17,12 @@ use function strtolower;
 class RouteListCommand extends Command
 {
     protected const NAME = 'route:list';
-    private RouteCollectionInterface $collector;
+    private RouterInterface $router;
 
-    public function __construct(RouteCollectionInterface $collector)
+    public function __construct(RouterInterface $router)
     {
         parent::__construct(RouteListCommand::NAME);
-        $this->collector = $collector;
+        $this->router = $router;
     }
 
     protected function configure(): void
@@ -37,7 +37,7 @@ class RouteListCommand extends Command
         $table
             ->setHeaders(['Name:', 'Path:', 'Callback:', 'Methods:']);
 
-        foreach ($this->collector->getRoutes() as $name => $route) {
+        foreach ($this->router->getRoutes() as $name => $route) {
             if ($route instanceof Route) {
                 $table->addRow(
                     [
