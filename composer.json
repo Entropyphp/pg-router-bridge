@@ -26,6 +26,7 @@
 	  "entropyphp/eventdispacher": "^1.0",
 	  "entropyphp/entropyphp": "^0.1",
 	  "guzzlehttp/psr7": "^2.6",
+	  "fig/http-message-util": "^1.1",
 	  "psr/container": "^2.0",
 	  "php-di/php-di": "^7.0",
 	  "symfony/console": "^v7.3"

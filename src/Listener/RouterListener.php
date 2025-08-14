@@ -72,7 +72,7 @@ class RouterListener implements EventSubscriberInterface
         );
         $event->setRequest($request->withAttribute(get_class($result), $result)
             ->withAttribute('_controller', $route->getCallback())
-            ->withAttribute('_params', $result->getMatchedAttributes()));
+            ->withAttribute('_params', $params));
     }
 
     private function trailingSlash(ServerRequestInterface $request): ?ResponseInterface
