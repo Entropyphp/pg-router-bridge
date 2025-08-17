@@ -20,12 +20,12 @@ use function is_string;
 class Route
 {
     private mixed $parameters;
-    private string $path;
-    private string $name;
-    private string $host;
-    private string $port;
-    private array $methods;
-    private array $schemes;
+    private ?string $path;
+    private ?string $name;
+    private ?string $host;
+    private ?string $port;
+    private ?array $methods;
+    private ?array $schemes;
     private array $middlewares;
 
     /**
@@ -76,7 +76,7 @@ class Route
     /**
      * Get the value of the route path
      */
-    public function getPath(): string
+    public function getPath(): ?string
     {
         return $this->path;
     }
@@ -121,7 +121,7 @@ class Route
         return $this->middlewares;
     }
 
-    public function getPort(): string
+    public function getPort(): ?string
     {
         return $this->port;
     }
