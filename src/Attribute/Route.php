@@ -29,7 +29,7 @@ class Route
     private array $middlewares;
 
     /**
-     * @param array $parameters
+     * @param string|array $parameters
      * @param string|null $path
      * @param string|null $name
      * @param string|null $host
@@ -40,7 +40,7 @@ class Route
      * @throws RouteAttributeException
      */
     public function __construct(
-        array $parameters = [],
+        string|array $parameters = [],
         ?string $path = null,
         ?string $name = null,
         ?string $host = null,
@@ -49,8 +49,6 @@ class Route
         array $schemes = [],
         array $middlewares = []
     ) {
-        $this->parameters = $parameters;
-
         $this->path = $parameters['value'] ?? (is_string($parameters) ? $parameters : $path);
         $this->name = $parameters['name'] ?? (!is_null($name) ? $name : null);
         $this->host = $parameters['host'] ?? (!is_null($host) ? $host : null);
@@ -66,6 +64,8 @@ class Route
                 methods:["GET"]]) expects first parameter "path", null given.'
             );
         }
+
+        $this->parameters = is_array($parameters) ? $parameters : ['value' => $parameters];
     }
 
     public function getParameters(): array

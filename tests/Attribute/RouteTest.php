@@ -64,9 +64,10 @@ class RouteTest extends TestCase
 
     public function testCreateRouteWithStringParameter(): void
     {
-        $route = new Route(path: '/test');
+        $route = new Route('/test', name: 'test.route');
 
         $this->assertEquals('/test', $route->getPath());
+        $this->assertEquals('test.route', $route->getName());
     }
 
     public function testCreateRouteWithoutPathThrowsException(): void
@@ -77,7 +78,7 @@ class RouteTest extends TestCase
 
     public function testSetPort(): void
     {
-        $route = new Route(path: '/test');
+        $route = new Route('/test');
         $route->setPort('9000');
 
         $this->assertEquals('9000', $route->getPort());
@@ -92,6 +93,12 @@ class RouteTest extends TestCase
         $route = new Route($params);
 
         $this->assertEquals($params, $route->getParameters());
+    }
+
+    public function testGetParametersWithStringParameter(): void
+    {
+        $route = new Route('/test');
+        $this->assertEquals(['value' => '/test'], $route->getParameters());
     }
 
     public function testCreateRouteWithNullOptionalParameters(): void
