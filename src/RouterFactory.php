@@ -55,16 +55,26 @@ class RouterFactory
             $config = [
                 Router::CONFIG_CACHE_ENABLED => $cacheEnable,
                 Router::CONFIG_CACHE_DIR => $cacheDir . '/Router',
-                Router::CONFIG_CACHE_POOL_FACTORY => null,
             ];
+            if ($container->has('router.cache.pool.factory')) {
+                $config[Router::CONFIG_CACHE_POOL_FACTORY] = $container->get('router.cache.pool.factory');
+            }
             if ($container->has('router.tokens')) {
                 $config[Router::CONFIG_DEFAULT_TOKENS] = $container->get('router.tokens');
             }
         }
 
+        $regexCollector = null;
+        if ($container->has('router.regex.collector')) {
+            $regexCollector = $container->get('router.regex.collector');
+        }
+        $matcherFactory = null;
+        if ($container->has('router.matcher.factory')) {
+            $matcherFactory = $container->get('router.matcher.factory');
+        }
         return new Router(
-            null, // MarkRegexCollector
-            null, // MarkDataMatcher factory
+            $regexCollector, // MarkRegexCollector
+            $matcherFactory, // MarkDataMatcher factory
             $config
         );
     }
