@@ -56,8 +56,10 @@ class RouterFactory
                 Router::CONFIG_CACHE_ENABLED => $cacheEnable,
                 Router::CONFIG_CACHE_DIR => $cacheDir . '/Router',
                 Router::CONFIG_CACHE_POOL_FACTORY => null,
-                Router::CONFIG_DEFAULT_TOKENS => ['id' => '[0-9]+', 'slug' => '[a-zA-Z-]+[a-zA-Z0-9_-]+'],
             ];
+            if ($container->has('router.tokens')) {
+                $config[Router::CONFIG_DEFAULT_TOKENS] = $container->get('router.tokens');
+            }
         }
 
         return new Router(

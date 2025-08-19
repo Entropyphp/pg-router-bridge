@@ -14,4 +14,8 @@ return [
     'console.commands' => add([
         'route:list' => RouteListCommand::class,
     ]),
+    'router.tokens' => add([
+        'id' => '[0-9]+',
+        'slug' => '[a-zA-Z-]+[a-zA-Z0-9_-]+',
+    ]),
 ];
