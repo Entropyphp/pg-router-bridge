@@ -37,10 +37,12 @@ class RouterConfigFactory
             if ($container->has('router.cache.pool.factory')) {
                 $config[Router::CONFIG_CACHE_POOL_FACTORY] = $container->get('router.cache.pool.factory');
             }
-            if ($container->has('router.tokens')) {
-                $config[Router::CONFIG_DEFAULT_TOKENS] = $container->get('router.tokens');
-            }
         }
+
+        if ($container->has('router.tokens')) {
+            $config[Router::CONFIG_DEFAULT_TOKENS] = $container->get('router.tokens');
+        }
+
         return $config;
     }
 }
