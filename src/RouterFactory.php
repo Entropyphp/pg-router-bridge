@@ -43,7 +43,6 @@ class RouterFactory
             $cacheEnable = $container->get('env') === 'prod';
         }
 
-
         $config = null;
         if ($cacheEnable && $container->has('app.cache.dir')) {
             try {
