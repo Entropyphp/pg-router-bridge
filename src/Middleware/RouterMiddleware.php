@@ -6,7 +6,6 @@ namespace Entropy\Router\Middleware;
 
 use GuzzleHttp\Psr7\Response;
 use Pg\Router\Route;
-use Pg\Router\RouteResult;
 use pg\Router\RouterInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -64,8 +63,6 @@ class RouterMiddleware implements MiddlewareInterface
         ->withAttribute('_controller', $route->getCallback())
         ->withAttribute('_params', $params);
 
-        /** @var ServerRequestInterface $request */
-        $request = $request->withAttribute(get_class($result), $result);
         return $handler->handle($request);
     }
 
