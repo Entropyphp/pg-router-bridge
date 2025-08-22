@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Entropy\Router\Tests\Listener;
 
 use Entropy\Event\RequestEvent;
-use Entropy\Kernel\KernelEvent;
+use Entropy\Kernel\KernelInterface;
 use Entropy\Router\Exception\PageNotFoundException;
 use Entropy\Router\Listener\RouterListener;
 use GuzzleHttp\Psr7\Response;
@@ -15,23 +15,21 @@ use Pg\Router\Route;
 use Pg\Router\RouteResult;
 use Pg\Router\RouterInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ServerRequestInterface;
 
 class RouterListenerTest extends TestCase
 {
-    private KernelEvent $kernelEvent;
+    private KernelInterface $kernelEvent;
     private RouterInterface $router;
     private RouterListener $routerListener;
-    private ServerRequestInterface $request;
     private RequestEvent $event;
 
     protected function setUp(): void
     {
-        $this->kernelEvent = $this->createMock(KernelEvent::class);
+        $this->kernelEvent = $this->createMock(KernelInterface::class);
         $this->router = $this->createMock(RouterInterface::class);
         $this->routerListener = new RouterListener($this->router);
-        $this->request = new ServerRequest('GET', new Uri('http://example.com'));
-        $this->event = new RequestEvent($this->kernelEvent, $this->request);
+        $request = new ServerRequest('GET', new Uri('https://example.com'));
+        $this->event = new RequestEvent($this->kernelEvent, $request);
     }
 
     /**
@@ -39,7 +37,7 @@ class RouterListenerTest extends TestCase
      */
     public function testTrailingSlashRedirect(): void
     {
-        $request = new ServerRequest('GET', new Uri('http://example.com/test/'));
+        $request = new ServerRequest('GET', new Uri('https://example.com/test/'));
         $event = new RequestEvent($this->kernelEvent, $request);
 
         $this->routerListener->__invoke($event);
@@ -57,7 +55,7 @@ class RouterListenerTest extends TestCase
     {
         $request = (new ServerRequest(
             'POST',
-            new Uri('http://example.com')
+            new Uri('https://example.com')
         ))->withParsedBody(['_method' => 'DELETE']);
         $event = new RequestEvent($this->kernelEvent, $request);
 

@@ -20,11 +20,12 @@
     ],
     "require": {
 	  "php": "^8.2 || ^8.3 || ^8.4",
+	  "entropyphp/core-interfaces": "^0.1",
 	  "willy68/pg-router": "^v2.0",
 	  "entropyphp/module": "^1.0",
 	  "entropyphp/utils": "^0.1",
 	  "entropyphp/eventdispacher": "^1.0",
-	  "entropyphp/entropyphp": "^0.1",
+	  "entropyphp/event": "^0.1",
 	  "guzzlehttp/psr7": "^2.6",
 	  "fig/http-message-util": "^1.1",
 	  "psr/container": "^2.0",
