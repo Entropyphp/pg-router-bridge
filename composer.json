@@ -1,6 +1,7 @@
 {
     "name": "entropyphp/pg-router-bridge",
     "type": "pg-module",
+  	"description": "Entropy PHP Router Bridge",
     "license": "MIT",
     "autoload": {
         "psr-4": {
