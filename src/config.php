@@ -11,6 +11,7 @@ use Pg\Router\RouterInterface;
 use function DI\add;
 use function DI\factory;
 
+//@codeCoverageIgnoreStart
 return [
     RouterInterface::class => factory(RouterFactory::class),
     Router::class => factory(RouterFactory::class),
@@ -23,3 +24,4 @@ return [
         'slug' => '[a-zA-Z-]+[a-zA-Z0-9_-]+',
     ]),
 ];
+//@codeCoverageIgnoreEnd
