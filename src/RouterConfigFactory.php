@@ -23,7 +23,7 @@ class RouterConfigFactory
         }
 
         $config = null;
-        if ($cacheEnable && $container->has('app.cache.dir')) {
+        if ($cacheEnable || $container->has('app.cache.dir')) {
             try {
                 $cacheDir = $container->get('app.cache.dir');
             } catch (\Throwable) {
