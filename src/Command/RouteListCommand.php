@@ -53,7 +53,7 @@ class RouteListCommand extends Command
         $table->setColumnMaxWidth(0, 20);
         $table->setColumnMaxWidth(1, 20);
         $table->setColumnMaxWidth(2, 20);
-        $table->setColumnMaxWidth(3, 8);
+        $table->setColumnMaxWidth(3, 20);
 
         $table->render();
 
