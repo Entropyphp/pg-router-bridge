@@ -10,23 +10,21 @@ use Pg\Router\RegexCollector\MarkRegexCollector;
 use Pg\Router\Router;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheException;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
+use ReflectionException;
 
 class RouterFactoryTest extends TestCase
 {
     private RouterFactory $factory;
     private ContainerInterface $container;
 
-    protected function setUp(): void
-    {
-        $this->factory = new RouterFactory();
-        $this->container = $this->createMock(ContainerInterface::class);
-    }
-
     /**
      * @throws ContainerExceptionInterface
      * @throws CacheException
+     * @throws ReflectionException
      */
     public function testCreateRouterWithoutDependencies(): void
     {
@@ -38,13 +36,21 @@ class RouterFactoryTest extends TestCase
             ]);
 
         $router = ($this->factory)($this->container);
+        $reflection = new ReflectionClass($router);
 
-        $this->assertInstanceOf(Router::class, $router);
+        $property = $reflection->getProperty('matcherFactory');
+        $matcher = $property->getValue($router);
+        $this->assertNull($matcher);
+
+        $property = $reflection->getProperty('regexCollector');
+        $collector = $property->getValue($router);
+        $this->assertNull($collector);
     }
 
     /**
      * @throws ContainerExceptionInterface
      * @throws CacheException
+     * @throws ReflectionException
      */
     public function testCreateRouterWithConfig(): void
     {
@@ -65,13 +71,21 @@ class RouterFactoryTest extends TestCase
             ->willReturn($config);
 
         $router = ($this->factory)($this->container);
+        $reflection = new ReflectionClass($router);
 
-        $this->assertInstanceOf(Router::class, $router);
+        $property = $reflection->getProperty('cachePoolFactory');
+        $cachePoolFactory = $property->getValue($router);
+        $this->assertIsCallable($cachePoolFactory);
+
+        $property = $reflection->getProperty('cachePool');
+        $cachePool = $property->getValue($router);
+        $this->assertInstanceOf(CacheItemPoolInterface::class, $cachePool);
     }
 
     /**
      * @throws ContainerExceptionInterface
      * @throws CacheException
+     * @throws ReflectionException
      */
     public function testCreateRouterWithRegexCollector(): void
     {
@@ -89,13 +103,21 @@ class RouterFactoryTest extends TestCase
             ->willReturn($regexCollector);
 
         $router = ($this->factory)($this->container);
+        $reflection = new ReflectionClass($router);
 
-        $this->assertInstanceOf(Router::class, $router);
+        $property = $reflection->getProperty('matcherFactory');
+        $matcher = $property->getValue($router);
+        $this->assertNull($matcher);
+
+        $property = $reflection->getProperty('regexCollector');
+        $collector = $property->getValue($router);
+        $this->assertInstanceOf(MarkRegexCollector::class, $collector);
     }
 
     /**
      * @throws ContainerExceptionInterface
      * @throws CacheException
+     * @throws ReflectionException
      */
     public function testCreateRouterWithMatcherFactory(): void
     {
@@ -113,13 +135,21 @@ class RouterFactoryTest extends TestCase
             ->willReturn($matcherFactory);
 
         $router = ($this->factory)($this->container);
+        $reflection = new ReflectionClass($router);
 
-        $this->assertInstanceOf(Router::class, $router);
+        $property = $reflection->getProperty('matcherFactory');
+        $matcher = $property->getValue($router);
+        $this->assertIsCallable($matcher);
+
+        $property = $reflection->getProperty('regexCollector');
+        $collector = $property->getValue($router);
+        $this->assertNull($collector);
     }
 
     /**
      * @throws ContainerExceptionInterface
      * @throws CacheException
+     * @throws ReflectionException
      */
     public function testCreateRouterWithAllDependencies(): void
     {
@@ -142,7 +172,28 @@ class RouterFactoryTest extends TestCase
             ]);
 
         $router = ($this->factory)($this->container);
+        $reflection = new ReflectionClass($router);
 
-        $this->assertInstanceOf(Router::class, $router);
+        $property = $reflection->getProperty('regexCollector');
+        $collector = $property->getValue($router);
+        $this->assertInstanceOf(MarkRegexCollector::class, $collector);
+
+        $property = $reflection->getProperty('matcherFactory');
+        $matcher = $property->getValue($router);
+        $this->assertIsCallable($matcher);
+
+        $property = $reflection->getProperty('cachePoolFactory');
+        $cachePoolFactory = $property->getValue($router);
+        $this->assertIsCallable($cachePoolFactory);
+
+        $property = $reflection->getProperty('cachePool');
+        $cachePool = $property->getValue($router);
+        $this->assertInstanceOf(CacheItemPoolInterface::class, $cachePool);
+    }
+
+    protected function setUp(): void
+    {
+        $this->factory = new RouterFactory();
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 }
