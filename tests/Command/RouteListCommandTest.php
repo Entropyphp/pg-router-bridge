@@ -6,6 +6,7 @@ use Entropy\Router\Command\RouteListCommand;
 use Pg\Router\Route;
 use Pg\Router\RouterInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class RouteListCommandTest extends TestCase
@@ -29,10 +30,11 @@ class RouteListCommandTest extends TestCase
 
         // Use CommandTester to execute
         $tester = new CommandTester($command);
-        $tester->execute([]);
+        $result = $tester->execute([]);
 
         $output = $tester->getDisplay();
 
+        $this->assertEquals(Command::SUCCESS, $result);
         $this->assertStringContainsString('foo_route', $output);
         $this->assertStringContainsString('/foo', $output);
         $this->assertStringContainsString('FooController::bar', $output);
