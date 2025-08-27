@@ -36,7 +36,6 @@ class RouteListCommandTest extends TestCase
 
         $output = $tester->getDisplay();
 
-
         $this->assertEquals(Command::SUCCESS, $result);
         $this->assertStringContainsString('foo_route', $output);
         $this->assertStringContainsString('/foo', $output);
