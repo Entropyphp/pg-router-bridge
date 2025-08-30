@@ -2,7 +2,7 @@
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PHP Version](https://img.shields.io/badge/php-%3E%3D8.1-blue.svg)](https://php.net)
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D8.2-blue.svg)](https://php.net)
 [![Coverage Status](https://coveralls.io/repos/github/Entropyphp/pg-router-bridge/badge.svg?branch=main)](https://coveralls.io/github/Entropyphp/pg-router-bridge?branch=main)
 [![Continuous Integration](https://github.com/Entropyphp/pg-router-bridge/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Entropyphp/pg-router-bridge/actions/workflows/ci.yml)
 
